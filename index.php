@@ -27,5 +27,7 @@ echo $pikachu->__toString() . '<br>';
 // $pikachu->showEnergyType();
 
 echo $pikachu->hitPoints . '<br>';
-echo $pikachu->energyType;
+echo $pikachu->energyType . '<br>';
+
+echo $charmeleon->energyType;
 ?>
