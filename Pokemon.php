@@ -24,20 +24,14 @@ class Pokemon
     return json_encode($this);
   }
 
-  // public function showEnergyType()
-  // {
-  //   echo '<h2>' . $this->energyType . '</h2>';
-  // }
-
   public function fight($move, $target) {
-    echo $target->name . ' got hit for ';
 
     $getMove = array_search($move, array_column($this->attacks, 'move'));
     $doDamage = $this->attacks[$getMove]->damage;
-    echo $doDamage . '! <br>';
-
-    echo $target->hitPoints;
-
+    $reducedhealth = $target->hitPoints - $doDamage;
+    echo $this->name . ' used ' . $move . '<br>';
+    echo $target->name . ' got hit for ' . $doDamage . '! <br>';
+    echo $target->name . ' has ' . $reducedhealth . 'HP left!';
 
   }
 }

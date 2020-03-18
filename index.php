@@ -14,22 +14,13 @@ $pikachu =  new pokemon(
 );
 
 $charmeleon = new pokemon(
-  'charmeleon',
+  'Charmeleon',
   'fire',
   '60',
   [(object)array('move'=>'Head Butt', 'damage'=> 10), (object)array('move'=>'Flare', 'damage'=> 30)],
   (object)array('type'=>'Water', 'mulitplier' => 2),
   (object)array('type'=>'Lightning', 'mulitplier' => 10)
 );
-
-// echo $pikachu->__toString() . '<br>';
-
-// $pikachu->showEnergyType();
-
-// echo $pikachu->hitPoints . '<br>';
-// echo $pikachu->energyType . '<br>';
-
-// echo $charmeleon->energyType;
 
 $pikachu->fight('Electric Ring', $charmeleon);
 ?>
