@@ -41,27 +41,41 @@ class Pokemon
     $targetResistanceMultiplier = $target->resistance->multiplier;
 
     // show stats
-    echo $thisType . '<br>';
-    echo $thisWeaknessType . '<br>';
-    echo $thisWeaknessMultiplier . '<br>';
-    echo $thisResistanceType . '<br>';
-    echo $thisResistanceMultiplier . '<br><br>';
-
-    echo $targetType . '<br>';
-    echo $targetWeaknessType . '<br>';
-    echo $targetWeaknessMultiplier . '<br>';
-    echo $targetResistanceType . '<br>';
-    echo $targetResistanceMultiplier . '<br><br>';
+    // echo $thisType . '<br>';
+    // echo $thisWeaknessType . '<br>';
+    // echo $thisWeaknessMultiplier . '<br>';
+    // echo $thisResistanceType . '<br>';
+    // echo $thisResistanceMultiplier . '<br><br>';
+    //
+    // echo $targetType . '<br>';
+    // echo $targetWeaknessType . '<br>';
+    // echo $targetWeaknessMultiplier . '<br>';
+    // echo $targetResistanceType . '<br>';
+    // echo $targetResistanceMultiplier . '<br><br>';
 
     // Attack
     $getMove = array_search($move, array_column($this->attacks, 'move'));
     $doDamage = $this->attacks[$getMove]->damage;
-    $reducedhealth = $target->hitPoints - $doDamage;
+
+    if ($thisType == $targetWeaknessType) {
+      $damageDone = $doDamage * $targetWeaknessMultiplier;
+    } else if ($thisType == $targetResistanceType) {
+      $damageDone = $doDamage / $targetResistanceMultiplier;
+    } else {
+      $damageDone = $doDamage;
+    }
+
+    if ($damageDone > $target->hitPoints) {
+      $reducedhealth = 0;
+    } else {
+      $reducedhealth = $target->hitPoints - $damageDone;
+    }
 
     // Show what happens
     echo $this->name . ' used ' . $move . '!<br>';
-    echo $target->name . ' got hit for ' . $doDamage . '! <br>';
+    echo $target->name . ' got hit for ' . $damageDone . '! <br>';
     echo $target->name . ' has ' . $reducedhealth . 'HP left! <br>';
+    // echo $damageDone;
 
   }
 }
