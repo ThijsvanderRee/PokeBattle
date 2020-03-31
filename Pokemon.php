@@ -1,8 +1,6 @@
 <?php
 
-
-class Pokemon
-{
+class Pokemon {
 
   public $name;
   public $energyType;
@@ -24,59 +22,52 @@ class Pokemon
     return json_encode($this);
   }
 
+  private function takeDamage($target, $damageDone) {
+    $target->hitpoints - $damageDone;
+  }
+
   public function fight($move, $target) {
-
-    // get stats of current pokemon
-    $thisType = $this->energyType;
-    $thisWeaknessType = $this->weakness->type;
-    $thisWeaknessMultiplier = $this->weakness->multiplier;
-    $thisResistanceType = $this->resistance->type;
-    $thisResistanceMultiplier = $this->resistance->multiplier;
-
-    // Get stats of target pokemon
-    $targetType = $target->energyType;
-    $targetWeaknessType = $target->weakness->type;
-    $targetWeaknessMultiplier = $target->weakness->multiplier;
-    $targetResistanceType = $target->resistance->type;
-    $targetResistanceMultiplier = $target->resistance->multiplier;
-
-    // show stats
-    // echo $thisType . '<br>';
-    // echo $thisWeaknessType . '<br>';
-    // echo $thisWeaknessMultiplier . '<br>';
-    // echo $thisResistanceType . '<br>';
-    // echo $thisResistanceMultiplier . '<br><br>';
-    //
-    // echo $targetType . '<br>';
-    // echo $targetWeaknessType . '<br>';
-    // echo $targetWeaknessMultiplier . '<br>';
-    // echo $targetResistanceType . '<br>';
-    // echo $targetResistanceMultiplier . '<br><br>';
-
-    // Attack
-    $getMove = array_search($move, array_column($this->attacks, 'move'));
-    $doDamage = $this->attacks[$getMove]->damage;
-
-    if ($thisType == $targetWeaknessType) {
-      $damageDone = $doDamage * $targetWeaknessMultiplier;
-    } else if ($thisType == $targetResistanceType) {
-      $damageDone = $doDamage / $targetResistanceMultiplier;
+    if ($this->hitPoints <= 0) {
+      echo $this->name . ' is no longer able to fight! <br>';
     } else {
-      $damageDone = $doDamage;
+      if ($target->hitPoints <= 0) {
+        echo $target->name . ' is no longer able to fight! <br>';
+      }
+        else {
+
+        // Attack
+        $getMove = array_search($move, array_column($this->attacks, 'move'));
+        $doDamage = $this->attacks[$getMove]->damage;
+
+        if ($this->energyType == $target->weakness->type) {
+          $damageDone = $doDamage * $target->weakness->multiplier;
+          $this->takeDamage($target, $damageDone);
+        } else if ($this->energyType == $target->resistance->type) {
+          $damageDone = $doDamage / $target->resistance->multiplier;
+          $this->takeDamage($target, $damageDone);
+        } else {
+          $damageDone = $doDamage;
+          $this->takeDamage($target, $damageDone);
+        }
+
+        if ($damageDone >= $target->hitPoints) {
+          $reducedhealth = 0;
+        } else {
+          $reducedhealth = $target->hitPoints - $damageDone;
+        }
+
+        // Show what happens
+        echo $this->name . ' used ' . $move . '!<br>';
+        echo $target->name . ' got hit for ' . $damageDone . '! <br>';
+
+        if ($reducedhealth <= 0) {
+          echo $target->name . ' fainted! <br>';
+        } else {
+          echo $target->name . ' has ' . $reducedhealth . 'HP left! <br>';
+        }
+        $target->hitPoints = $reducedhealth;
+      }
     }
-
-    if ($damageDone > $target->hitPoints) {
-      $reducedhealth = 0;
-    } else {
-      $reducedhealth = $target->hitPoints - $damageDone;
-    }
-
-    // Show what happens
-    echo $this->name . ' used ' . $move . '!<br>';
-    echo $target->name . ' got hit for ' . $damageDone . '! <br>';
-    echo $target->name . ' has ' . $reducedhealth . 'HP left! <br>';
-    // echo $damageDone;
-
   }
 }
 

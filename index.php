@@ -23,4 +23,14 @@ $charmeleon = new pokemon(
 );
 
 $pikachu->fight('Electric Ring', $charmeleon);
+echo '<br>';
+$charmeleon->fight('Flare', $pikachu);
+echo '<br>';
+$pikachu->fight('Electric Ring', $charmeleon);
+echo '<br>';
+$charmeleon->fight('Flare', $pikachu);
+echo '<br>';
+$pikachu->fight('Electric Ring', $charmeleon);
+echo '<br>';
+// $charmeleon->fight('Flare', $pikachu);
 ?>
