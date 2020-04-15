@@ -69,6 +69,40 @@ class Pokemon {
       }
     }
   }
+
+
+
 }
+
+
+class Pikachu extends Pokemon
+{
+
+  function __construct($name)
+  {
+    $this->name = $name;
+    $this->energyType = 'Lightning';
+    $this->hitPoints = '60';
+    $this->attacks = [(object)array('move' => 'Electric Ring', 'damage' => 50), (object)array('move' =>'Pika Punch', 'damage' => 20)];
+    $this->weakness = (object)array('type' => 'Fire', 'multiplier' => 1.5);
+    $this->resistance = (object)array('type' => 'Fighting', 'multiplier' => 20);
+  }
+}
+
+class Charmeleon extends Pokemon
+{
+
+  function __construct($name)
+  {
+    $this->name = $name;
+    $this->energyType = 'Fire';
+    $this->hitPoints = '60';
+    $this->attacks = [(object)array('move' => 'Head Butt', 'damage' => 10), (object)array('move' => 'Flare', 'damage' => 30)];
+    $this->weakness = (object)array('type' => 'Water', 'multiplier' => 2);
+    $this->resistance = (object)array('type' => 'Lightning', 'multiplier' => 10);
+  }
+}
+
+
 
 ?>
