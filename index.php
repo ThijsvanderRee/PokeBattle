@@ -4,24 +4,24 @@ require 'Pokemon.php';
 
 // Create pokemon
 
-$pikachu = new Pikachu(
+$pikachu1 = new Pikachu(
   'Pikachu1'
 );
 
-$charmeleon = new Charmeleon(
+$charmeleon1 = new Charmeleon(
   'Charmeleon1'
 );
 
 // Battle
 
-$pikachu->fight('Electric Ring', $charmeleon);
+$pikachu1->fight('Electric Ring', $charmeleon1);
 echo '<br>';
-$charmeleon->fight('Flare', $pikachu);
+$charmeleon1->fight('Flare', $pikachu1);
 echo '<br>';
-$pikachu->fight('Pika Punch', $charmeleon);
+$pikachu1->fight('Pika Punch', $charmeleon1);
 echo '<br>';
-$charmeleon->fight('Head butt', $pikachu);
+$charmeleon1->fight('Head butt', $pikachu1);
 echo '<br>';
-$pikachu->fight('Electric Ring', $charmeleon);
+$pikachu1->fight('Electric Ring', $charmeleon1);
 
 ?>
